@@ -25,7 +25,8 @@ public class Client {
         Scanner scan = new Scanner(System.in);
         short requestID = 0;
         while(true) {
-            System.out.println("VALID OPERATIONS: 0 = addition, 1 = subtraction, 2 = or, 3 = and, 4 = division, 5 = multiplication");
+            System.out.println("----- CLIENT INPUT -----");
+            System.out.println("- VALID OPERATIONS\n > 0 = addition\n > 1 = subtraction\n > 2 = or\n > 3 = and\n > 4 = division\n > 5 = multiplication");
             System.out.println("Please enter your desired operation (0-5):");
             byte opCode = scan.nextByte();
             if (opCode < 0 || opCode > 5)
@@ -84,7 +85,7 @@ public class Client {
             sock = new DatagramSocket(destPort);
             DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
 
-            System.out.println("Waiting for Server...");
+            System.out.println("Waiting for Server...\n");
             sock.receive(sPacket);
             // - Split into Server and Client Decoders
             ServerOperationDecoder sDecoder = (args.length == 2 ?

@@ -26,8 +26,6 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
         // Pull operation name length
         byte onl = src.readByte();
 
-        System.out.println("ONL: " + onl);
-
         // Check if operation length name is not -1
         if(onl == -1)
             throw new EOFException();
@@ -37,8 +35,8 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
         src.readFully(stringBuf);
         String operationName = new String(stringBuf, encoding);
 
-        for(byte b: stringBuf)
-            System.out.println("STRING BUF X: " + b);
+        /*for(byte b: stringBuf)
+            System.out.println("STRING BUF X: " + b);*/
 
         // Build class and return
         return new ClientPackage(TML, opCode, op1, op2, requestID,
