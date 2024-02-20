@@ -1,3 +1,3 @@
 public interface ClientOperationEncoder {
-        byte[] encode(ClientUDP clientUDP) throws Exception;
+        byte[] encode(ClientPackage clientUDP) throws Exception;
 }

@@ -1,11 +1,11 @@
 //Information sent out from client.
-public class ServerUDP {
+public class ServerPackage {
     public byte TML;
     public int result;
     public byte errorCode;
     public short requestID;
 
-    public ServerUDP(byte TML, int result, byte errorCode, short requestID){
+    public ServerPackage(byte TML, int result, byte errorCode, short requestID){
         this.TML = TML;
         this.result = result;
         this.errorCode = errorCode;

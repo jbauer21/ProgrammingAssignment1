@@ -11,7 +11,7 @@ public class ServerOperationEncoderBin implements ServerOperationEncoder, BinCon
     public ServerOperationEncoderBin(String encoding) {
         this.encoding = encoding;
     }
-    public byte[] encode(ServerUDP serverUDP) throws Exception {
+    public byte[] encode(ServerPackage serverUDP) throws Exception {
 
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(buf);

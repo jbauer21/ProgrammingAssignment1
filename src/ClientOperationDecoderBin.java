@@ -13,7 +13,7 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
         this.encoding = encoding;
     }
 
-    public ClientUDP decode(InputStream wire) throws IOException {
+    public ClientPackage decode(InputStream wire) throws IOException {
         DataInputStream src = new DataInputStream(wire);
 
         // Read source data
@@ -41,11 +41,11 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
             System.out.println("STRING BUF X: " + b);
 
         // Build class and return
-        return new ClientUDP(TML, opCode, op1, op2, requestID,
+        return new ClientPackage(TML, opCode, op1, op2, requestID,
             onl, operationName);
     }
 
-    public ClientUDP decode(DatagramPacket p) throws IOException {
+    public ClientPackage decode(DatagramPacket p) throws IOException {
         ByteArrayInputStream payload =
                 new ByteArrayInputStream(p.getData(), p.getOffset(), p.getLength());
         return decode(payload);

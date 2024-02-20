@@ -13,7 +13,7 @@ public class ServerOperationDecoderBin implements ServerOperationDecoder, BinCon
         this.encoding = encoding;
     }
 
-    public ServerUDP decode(InputStream wire) throws IOException {
+    public ServerPackage decode(InputStream wire) throws IOException {
         boolean single, rich, female;
         DataInputStream src = new DataInputStream(wire);
         byte TML = src.readByte();
@@ -22,10 +22,10 @@ public class ServerOperationDecoderBin implements ServerOperationDecoder, BinCon
         short requestID = src.readShort();
 
 
-        return new ServerUDP(TML, result, errorCode, requestID);
+        return new ServerPackage(TML, result, errorCode, requestID);
     }
 
-    public ServerUDP decode(DatagramPacket p) throws IOException {
+    public ServerPackage decode(DatagramPacket p) throws IOException {
         ByteArrayInputStream payload =
                 new ByteArrayInputStream(p.getData(), p.getOffset(), p.getLength());
         return decode(payload);

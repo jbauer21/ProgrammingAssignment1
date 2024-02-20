@@ -1,7 +1,7 @@
 import java.net.*;  // for DatagramSocket and DatagramPacket
-import java.io.*;   // for IOException
 
-public class RecvUDP_Server {
+
+public class Server {
 
   public static void main(String[] args) throws Exception {
 
@@ -30,7 +30,7 @@ public class RecvUDP_Server {
 
 
           // Mark the received package
-          ClientUDP rClientPackage = cDecoder.decode(packet);
+          ClientPackage rClientPackage = cDecoder.decode(packet);
 
           // Pull the Received data
           System.out.println("Received Binary-Encoded Client UDP");
@@ -79,7 +79,7 @@ public class RecvUDP_Server {
 
           // Send result back to client
           // -> Construct a ServerUDP
-          ServerUDP sPackage = new ServerUDP((byte) 8, result, errorCode, requestID);
+          ServerPackage sPackage = new ServerPackage((byte) 8, result, errorCode, requestID);
           // -> Throw a quick lil debug message
           System.out.println("----- SENDING -----\n" +sPackage);
 

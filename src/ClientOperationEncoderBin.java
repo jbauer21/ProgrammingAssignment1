@@ -11,7 +11,7 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
         public ClientOperationEncoderBin(String encoding) {
             this.encoding = encoding;
         }
-        public byte[] encode(ClientUDP clientUDP) throws Exception {
+        public byte[] encode(ClientPackage clientUDP) throws Exception {
 
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(buf);

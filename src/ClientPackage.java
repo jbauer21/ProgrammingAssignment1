@@ -1,5 +1,5 @@
 //Information sent out from client.
-public class ClientUDP
+public class ClientPackage
 {
     public byte TML;
     public byte opCode;
@@ -9,7 +9,7 @@ public class ClientUDP
     public byte onl;
     public String operationName;
 
-    public ClientUDP(byte TML, byte opCode, int op1, int op2, short requestID, byte onl, String operationName){
+    public ClientPackage(byte TML, byte opCode, int op1, int op2, short requestID, byte onl, String operationName){
         this.TML = TML;
         this.opCode = opCode;
         this.op1 = op1;

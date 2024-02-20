@@ -1,3 +1,3 @@
 public interface ServerOperationEncoder {
-    byte[] encode(ServerUDP serverUDP) throws Exception;
+    byte[] encode(ServerPackage serverUDP) throws Exception;
 }

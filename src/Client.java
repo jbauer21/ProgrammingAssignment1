@@ -2,7 +2,7 @@ import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
 import java.util.Scanner;
 
-public class SendUDP_Client {
+public class Client {
 
     // Arguments
     // -> IP Address
@@ -59,7 +59,7 @@ public class SendUDP_Client {
             int op2 = scan.nextInt();
             byte TML = (byte) (13 + onl / 2);
 
-            ClientUDP newClient = new ClientUDP(TML, opCode, op1,
+            ClientPackage newClient = new ClientPackage(TML, opCode, op1,
                     op2, requestID, onl, operationName);
             System.out.println(newClient);
 
@@ -91,7 +91,7 @@ public class SendUDP_Client {
                     new ServerOperationDecoderBin(args[1]) :
                     new ServerOperationDecoderBin());
 
-            ServerUDP recPack = sDecoder.decode(sPacket);
+            ServerPackage recPack = sDecoder.decode(sPacket);
 
             System.out.println("----- RECEIVED -----\n" + recPack);
 
