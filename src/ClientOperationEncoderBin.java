@@ -4,11 +4,11 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
 
         private String encoding;  // Character encoding
 
-        public void ClientEncoderBin() {
+        public ClientOperationEncoderBin() {
             encoding = defaultEncoding;
         }
 
-        public void ClientEncoderBin(String encoding) {
+        public ClientOperationEncoderBin(String encoding) {
             this.encoding = encoding;
         }
         public byte[] encode(ClientUDP clientUDP) throws Exception {
