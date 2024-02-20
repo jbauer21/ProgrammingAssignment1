@@ -1,5 +1,6 @@
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
+import java.util.Scanner;
 
 public class SendUDP_Client {
 
@@ -18,26 +19,60 @@ public class SendUDP_Client {
         int destPort = Integer.parseInt(args[1]);               // Destination port
 
         // Create a sample ClientUDP
-        ClientUDP sampleClient = new ClientUDP((byte) 1, (byte) 2, (byte) 3,
-                (byte) 4, (short) 5, (byte) 8, "test");
-        // -> Loop for user input (NOT IMPLEMENTED)
 
-        System.out.println(sampleClient);
 
-        DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
 
-        // Use the encoding scheme given on the command line (args[2])
-        ClientOperationEncoder cEncoder = (args.length == 3 ?
-                new ClientOperationEncoderBin(args[2]) :
-                new ClientOperationEncoderBin() );
+        Scanner scan = new Scanner(System.in);
+        short requestID = 0;
+        while(true) {
+            System.out.println("VALID OPERATIONS: 0 = addition, 1 = subtraction, 2 = or, 3 = and, 4 = division, 5 = multiplication");
+            System.out.println("Please enter your desired operation (0-5):");
+            byte opCode = scan.nextByte();
+            if (opCode < 0 || opCode > 5)
+                throw new IOException("invalid length of opcode!");
+            String operationName = "";
+            byte onl;
+            switch (opCode) {
+                case 0:
+                    operationName = "addition";
+                case 1:
+                    operationName = "subtraction";
+                case 2:
+                    operationName = "or";
+                case 3:
+                    operationName = "and";
+                case 4:
+                    operationName = "division";
+                case 5:
+                    operationName = "multiplication";
+            }
+            onl = (byte) (operationName.length() * 2);
+            System.out.println("Please enter your first operand:");
+            int op1 = scan.nextInt();
+            System.out.println("Please enter your second operand:");
+            int op2 = scan.nextInt();
+            byte TML = (byte) (13 + onl / 2);
 
-        // Use Encoding Scheme (Client Encoder)
-        byte[] codedFriend = cEncoder.encode(sampleClient);
+            ClientUDP newClient = new ClientUDP(TML, opCode, op1,
+                    op2, requestID, onl, operationName);
+            System.out.println(newClient);
 
-        DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
-                                  destAddr, destPort);
-        sock.send(message);
+            DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
 
-        sock.close();
+            // Use the encoding scheme given on the command line (args[2])
+            ClientOperationEncoder cEncoder = (args.length == 3 ?
+                    new ClientOperationEncoderBin(args[2]) :
+                    new ClientOperationEncoderBin());
+
+            // Use Encoding Scheme (Client Encoder)
+            byte[] codedFriend = cEncoder.encode(newClient);
+
+            DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
+                    destAddr, destPort);
+            sock.send(message);
+
+            sock.close();
+            requestID += 1;
+        }
     }
 }
