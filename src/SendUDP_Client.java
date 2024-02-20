@@ -19,7 +19,7 @@ public class SendUDP_Client {
 
         // Create a sample ClientUDP
         ClientUDP sampleClient = new ClientUDP((byte) 1, (byte) 2, (byte) 3,
-                (byte) 4, (short) 5, (byte) 6, "test");
+                (byte) 4, (short) 5, (byte) 4, "test");
         // -> Loop for user input (NOT IMPLEMENTED)
 
         System.out.println(sampleClient);
