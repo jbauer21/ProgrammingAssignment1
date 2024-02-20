@@ -12,13 +12,14 @@ public class RecvUDP_Server {
       // Receiving Port
       int port = Integer.parseInt(args[0]);
 
-      // UDP socket for receiving
-      DatagramSocket sock = new DatagramSocket(port);
-      DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-
       // Run the server - Keep running until CTRL+C
       while(true) {
+          // UDP socket for receiving
+          DatagramSocket sock = new DatagramSocket(port);
+          DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+
           // Wait to receive a package
+          System.out.println("Waiting for Client...");
           sock.receive(packet);
 
           // Receive binary-encoded packet
@@ -87,6 +88,7 @@ public class RecvUDP_Server {
 
 
           // Establish new connection
+          System.out.println("----- CONNECTING -----\n" + packet.getAddress() + " : " + port);
           sock = new DatagramSocket();
           // -> Send out encoded result
           // --> Encode
@@ -102,6 +104,8 @@ public class RecvUDP_Server {
 
           // --> Close socket
           sock.close();
+
+          System.out.println("!! SENT PACKAGE !!");
       }
   }
 }
