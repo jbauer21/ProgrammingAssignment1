@@ -1,38 +1,41 @@
-public class SendUDP {}
-/*
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
 
-public class SendUDP {
+public class SendUDP_Client {
 
-  public static void main(String args[]) throws Exception {
+    // Arguments
+    // -> IP Address
+    // -> Port Number [10017]
+    public static void main(String args[]) throws Exception {
 
-      if (args.length != 2 && args.length != 3)  // Test for correct # of args        
-	  throw new IllegalArgumentException("Parameter(s): <Destination>" +
-					     " <Port> [<encoding]");
-      
-      
-      InetAddress destAddr = InetAddress.getByName(args[0]);  // Destination address
-      int destPort = Integer.parseInt(args[1]);               // Destination port
-      
-      /*Friend friend = new Friend(1234567890987654L, "Alice Adams",
-				 (short) 777, 90007, true, true, false);*/
-      
-      /*DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
-      
-      
-      // Use the encoding scheme given on the command line (args[2])
-      /*FriendEncoder encoder = (args.length == 3 ?
-				  new FriendEncoderBin(args[2]) :
-				  new FriendEncoderBin());*/
-      
+        // Test for the correct number of arguments
+        if (args.length != 2 && args.length != 3)
+            throw new IllegalArgumentException("Parameter(s): <Destination>" +
+                    " <Port> [<encoding]");
 
-      //byte[] codedFriend = encoder.encode(friend); // Encode friend
-      
-      /*DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
-						  destAddr, destPort);*/
-      //sock.send(message);
-      
-      /*sock.close();
-  }
-}*/
+
+        InetAddress destAddr = InetAddress.getByName(args[0]);  // Destination address
+        int destPort = Integer.parseInt(args[1]);               // Destination port
+
+        // Create a sample ClientUDP
+        ClientUDP sampleClient = new ClientUDP((byte) 1, (byte) 1, (byte) 1,
+                (byte) 1, (short) 1, (byte) 1, "test");
+        // -> Loop for user input (NOT IMPLEMENTED)
+
+        DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
+
+        // Use the encoding scheme given on the command line (args[2])
+        /*FriendEncoder encoder = (args.length == 3 ?
+            new FriendEncoderBin(args[2]) :
+            new FriendEncoderBin());*/
+
+        // Use Encoding Scheme (Client Encoder)
+        byte[] codedFriend = new byte[1];
+
+        DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
+                                  destAddr, destPort);
+        //sock.send(message);
+
+        sock.close();
+    }
+}
