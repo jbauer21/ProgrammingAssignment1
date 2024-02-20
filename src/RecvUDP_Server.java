@@ -14,24 +14,81 @@ public class RecvUDP_Server {
 
       // UDP socket for receiving
       DatagramSocket sock = new DatagramSocket(port);
-      DatagramPacket packet = new DatagramPacket(new byte[1024],1024);
-      // Wait to receive a package
-      sock.receive(packet);
+      DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 
-      // Receive binary-encoded packet
-      // - Split into Server and Client Decoders
+      // Run the server - Keep running until CTRL+C
+      while(true) {
+          // Wait to receive a package
+          sock.receive(packet);
 
-      ClientOperationDecoder cDecoder = (args.length == 2 ?
-				  new ClientOperationDecoderBin(args[1]) :
-				  new ClientOperationDecoderBin() );
+          // Receive binary-encoded packet
+          // - Split into Server and Client Decoders
+          ClientOperationDecoder cDecoder = (args.length == 2 ?
+                  new ClientOperationDecoderBin(args[1]) :
+                  new ClientOperationDecoderBin());
 
 
-      // Mark the received package
-      ClientUDP rClientPackage = cDecoder.decode(packet);
+          // Mark the received package
+          ClientUDP rClientPackage = cDecoder.decode(packet);
 
-      System.out.println("Received Binary-Encoded Client UDP");
-      System.out.println(rClientPackage);
+          // Pull the Received data
+          System.out.println("Received Binary-Encoded Client UDP");
+          System.out.println(rClientPackage);
 
-      sock.close();
+          // Operands
+          int op1 = rClientPackage.op1;
+          int op2 = rClientPackage.op2;
+
+          // Stored values
+          int result = 0;
+          byte errorCode = 0;
+          short requestID = rClientPackage.requestID;
+
+          // Run the operation
+          switch (rClientPackage.opCode){
+              // Multiplication
+              case 0:
+                  result = op1 * op2;
+                  break;
+              // Division
+              case 1:
+                  // Check if operand 2 is 0
+                  if(op2 == 0){
+                      errorCode = (byte) 127;
+                      result = 0;
+                      break;
+                  }
+                  result = op1 / op2;
+                  break;
+              // Bitwise Or
+              case 2:
+                  break;
+              // Bitwise And
+              case 3:
+                  break;
+              // Subtraction
+              case 4:
+                  result = op1 - op2;
+                  break;
+              // Addition
+              case 5:
+                  result = op1 + op2;
+                  break;
+          }
+
+          // Send result back to client
+          // -> Construct a ServerUDP
+          ServerUDP sPackage = new ServerUDP((byte) 8, result, errorCode, requestID);
+          // -> Send out encoded result
+          // --> Encode
+          ServerOperationEncoder sEncoder = (args.length == 2 ?
+                  new ServerOperationEncoderBin(args[1]) :
+                  new ServerOperationEncoderBin());
+          byte[] codedServerRes = sEncoder.encode(sPackage);
+          // --> Pack
+          DatagramPacket resPacket =new DatagramPacket(codedServerRes, codedServerRes.length);
+          // --> Send
+          sock.send(resPacket);
+      }
   }
 }
