@@ -17,7 +17,7 @@ public class SendUDP_Client {
 
         InetAddress destAddr = InetAddress.getByName(args[0]);  // Destination address
         int destPort = Integer.parseInt(args[1]);               // Destination port
-
+        System.out.println(destAddr);
         // Create a sample ClientUDP
 
 
@@ -76,11 +76,15 @@ public class SendUDP_Client {
             DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
                     destAddr, destPort);
             sock.send(message);
+            sock.close();
 
 
 
             // Wait for a response
+            sock = new DatagramSocket(destPort);
             DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
+
+            System.out.println("Waiting for Server...");
             sock.receive(sPacket);
             // - Split into Server and Client Decoders
             ServerOperationDecoder sDecoder = (args.length == 2 ?
@@ -89,7 +93,7 @@ public class SendUDP_Client {
 
             ServerUDP recPack = sDecoder.decode(sPacket);
 
-            System.out.println("RECEIVED\n\n" + recPack);
+            System.out.println("----- RECEIVED -----\n" + recPack);
 
             sock.close();
             requestID += 1;
