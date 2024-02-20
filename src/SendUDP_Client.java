@@ -33,18 +33,24 @@ public class SendUDP_Client {
             String operationName = "";
             byte onl;
             switch (opCode) {
-                case 0:
+                case 5:
                     operationName = "addition";
-                case 1:
+                    break;
+                case 4:
                     operationName = "subtraction";
+                    break;
                 case 2:
                     operationName = "or";
+                    break;
                 case 3:
                     operationName = "and";
-                case 4:
+                    break;
+                case 1:
                     operationName = "division";
-                case 5:
+                    break;
+                case 0:
                     operationName = "multiplication";
+                    break;
             }
             onl = (byte) (operationName.length() * 2);
             System.out.println("Please enter your first operand:");

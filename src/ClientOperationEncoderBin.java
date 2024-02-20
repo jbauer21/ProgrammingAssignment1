@@ -25,6 +25,8 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
             out.writeInt(clientUDP.op2); //write operation 2
             out.writeShort(clientUDP.requestID); //write request id
 
+            System.out.println("ONL: " + clientUDP.onl);
+
             if (clientUDP.onl > maxONL) //check to see if operation name length is too big.
                 throw new IOException("operation name length exceeds encoded length limit.");
 
