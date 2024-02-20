@@ -79,6 +79,15 @@ public class RecvUDP_Server {
           // Send result back to client
           // -> Construct a ServerUDP
           ServerUDP sPackage = new ServerUDP((byte) 8, result, errorCode, requestID);
+          // -> Throw a quick lil debug message
+          System.out.println("----- SENDING -----\n" +sPackage);
+
+
+          sock.close();
+
+
+          // Establish new connection
+          sock = new DatagramSocket();
           // -> Send out encoded result
           // --> Encode
           ServerOperationEncoder sEncoder = (args.length == 2 ?
@@ -90,6 +99,9 @@ public class RecvUDP_Server {
                   packet.getAddress(), port);
           // --> Send
           sock.send(resPacket);
+
+          // --> Close socket
+          sock.close();
       }
   }
 }
