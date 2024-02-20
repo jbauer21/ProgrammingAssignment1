@@ -11,4 +11,13 @@ public class ServerUDP {
         this.errorCode = errorCode;
         this.requestID = requestID;
     }
+
+    public String toString(){
+        final String EOLN = java.lang.System.getProperty("line.separator");
+        String value = "TML: " + TML + EOLN +
+                        "RESULT: " + result + EOLN +
+                        "ERROR CODE: " + errorCode + EOLN +
+                        "REQUEST ID: " + requestID + EOLN;
+        return value;
+    }
 }

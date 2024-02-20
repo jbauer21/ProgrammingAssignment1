@@ -77,6 +77,8 @@ public class SendUDP_Client {
                     destAddr, destPort);
             sock.send(message);
 
+
+
             // Wait for a response
             DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
             sock.receive(sPacket);
@@ -84,6 +86,10 @@ public class SendUDP_Client {
             ServerOperationDecoder sDecoder = (args.length == 2 ?
                     new ServerOperationDecoderBin(args[1]) :
                     new ServerOperationDecoderBin());
+
+            ServerUDP recPack = sDecoder.decode(sPacket);
+
+            System.out.println("RECEIVED\n\n" + recPack);
 
             sock.close();
             requestID += 1;
