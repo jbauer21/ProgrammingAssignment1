@@ -91,7 +91,7 @@ public class Client {
             }
             DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
 
-            System.out.println("Waiting for Server...\n");
+            System.out.println("Waiting for Server...\n[USE CTRL+C AT ANY TIME TO QUIT]\n");
             sock.receive(sPacket);
             long eTime = System.nanoTime();
             // -> Print response time

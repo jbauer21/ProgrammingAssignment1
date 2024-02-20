@@ -24,7 +24,7 @@ public class Server {
           DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 
           // Wait to receive a package
-          System.out.println("Waiting for Client...");
+          System.out.println("Waiting for Client...\n[USE CTRL+C AT ANY TIME TO QUIT]");
           sock.receive(packet);
           sock.close();
 
