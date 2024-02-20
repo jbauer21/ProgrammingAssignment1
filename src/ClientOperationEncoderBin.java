@@ -34,7 +34,14 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
 
             byte[] encodedOperationMessage = clientUDP.operationName.getBytes(encoding);
             out.write(encodedOperationMessage);
+
             out.flush();
+            byte[] totalArray = buf.toByteArray();
+            /*
+            for(byte b : totalArray){
+                System.out.println(b);
+            }
+            */
             return buf.toByteArray();
         }
     }
