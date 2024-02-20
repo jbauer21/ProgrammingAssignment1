@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public interface ClientOperationEncoder {
+public interface ClientOperationEncoder {
+        byte[] encode(ClientUDP clientUDP) throws Exception;
 }
