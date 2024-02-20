@@ -19,4 +19,16 @@ public class ClientUDP
         this.operationName = operationName;
 
     }
+
+    public String toString(){
+        final String EOLN = java.lang.System.getProperty("line.separator");
+        String outVal = "TML: " + TML + EOLN +
+                        "OP CODE: " + opCode + EOLN +
+                        "OP1: " + op1 + EOLN +
+                        "OP2: " + op2 + EOLN +
+                        "REQUEST ID: " + requestID + EOLN +
+                        "ONL: " + onl + EOLN +
+                        "NAME: " + operationName + EOLN;
+        return outVal;
+    }
 }

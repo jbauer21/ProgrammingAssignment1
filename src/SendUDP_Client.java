@@ -18,9 +18,11 @@ public class SendUDP_Client {
         int destPort = Integer.parseInt(args[1]);               // Destination port
 
         // Create a sample ClientUDP
-        ClientUDP sampleClient = new ClientUDP((byte) 1, (byte) 1, (byte) 1,
-                (byte) 1, (short) 1, (byte) 1, "test");
+        ClientUDP sampleClient = new ClientUDP((byte) 1, (byte) 2, (byte) 3,
+                (byte) 4, (short) 5, (byte) 6, "test");
         // -> Loop for user input (NOT IMPLEMENTED)
+
+        System.out.println(sampleClient);
 
         DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
 
