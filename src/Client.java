@@ -77,16 +77,26 @@ public class Client {
             DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
                     destAddr, destPort);
             sock.send(message);
+            long sTime = System.nanoTime();
             sock.close();
 
 
 
             // Wait for a response
-            sock = new DatagramSocket(destPort);
+            sock = null;
+            while(sock == null){
+                try{
+                    sock = new DatagramSocket(destPort);
+                }catch (Exception e) {}
+            }
             DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
 
             System.out.println("Waiting for Server...\n");
             sock.receive(sPacket);
+            long eTime = System.nanoTime();
+            // -> Print response time
+            System.out.println("----- RESPONSE TIME -----\n" + (eTime - sTime));
+
             // - Split into Server and Client Decoders
             ServerOperationDecoder sDecoder = (args.length == 2 ?
                     new ServerOperationDecoderBin(args[1]) :

@@ -15,12 +15,18 @@ public class Server {
       // Run the server - Keep running until CTRL+C
       while(true) {
           // UDP socket for receiving
-          DatagramSocket sock = new DatagramSocket(port);
+          DatagramSocket sock = null;
+          while(sock == null){
+              try{
+                  sock = new DatagramSocket(port);
+              }catch (Exception e) {}
+          }
           DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 
           // Wait to receive a package
           System.out.println("Waiting for Client...");
           sock.receive(packet);
+          sock.close();
 
           // Receive binary-encoded packet
           // - Split into Server and Client Decoders
@@ -63,9 +69,11 @@ public class Server {
                   break;
               // Bitwise Or
               case 2:
+                  result = op1 | op2;
                   break;
               // Bitwise And
               case 3:
+                  result = op1 & op2;
                   break;
               // Subtraction
               case 4:
@@ -82,9 +90,6 @@ public class Server {
           ServerPackage sPackage = new ServerPackage((byte) 8, result, errorCode, requestID);
           // -> Throw a quick lil debug message
           System.out.println("----- SENDING -----\n" +sPackage);
-
-
-          sock.close();
 
 
           // Establish new connection

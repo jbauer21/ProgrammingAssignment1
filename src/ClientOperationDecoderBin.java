@@ -35,8 +35,36 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
         src.readFully(stringBuf);
         String operationName = new String(stringBuf, encoding);
 
-        /*for(byte b: stringBuf)
-            System.out.println("STRING BUF X: " + b);*/
+
+        // Print Bytes
+        System.out.println("\n----- BYTES -----");
+        // - Bytes
+        System.out.print(" | " + Integer.toHexString(TML));
+        System.out.print(" | " + Integer.toHexString(opCode));
+        // - Integer
+        // -- OP1
+        byte[] op1Byte = IntToByteArray(op1);
+        for(byte b : op1Byte)
+            System.out.print(" | " + Integer.toHexString(b));
+        // -- OP2
+        byte[] op2Byte = IntToByteArray(op2);
+        for(byte b : op2Byte)
+            System.out.print(" | " + Integer.toHexString(b));
+        // - Short
+        // -- Request ID
+        byte[] reqIDByte = ShortToByteArray(requestID);
+        for(byte b : reqIDByte)
+            System.out.print(" | " + Integer.toHexString(b));
+        // - ONL
+        System.out.print(" | " + Integer.toHexString(onl));
+        // - String
+        byte[] stringByte = operationName.getBytes();
+        for(int i = 0; i < stringByte.length; i++) {
+            System.out.print(" | 0");
+            System.out.print(" | " + Integer.toHexString(stringByte[i]));
+        }
+        System.out.print(" | \n\n");
+
 
         // Build class and return
         return new ClientPackage(TML, opCode, op1, op2, requestID,
@@ -47,5 +75,20 @@ public class ClientOperationDecoderBin implements ClientOperationDecoder, BinCon
         ByteArrayInputStream payload =
                 new ByteArrayInputStream(p.getData(), p.getOffset(), p.getLength());
         return decode(payload);
+    }
+
+    byte[] IntToByteArray( int data ) {
+        byte[] result = new byte[4];
+        result[0] = (byte) ((data & 0xFF000000) >> 24);
+        result[1] = (byte) ((data & 0x00FF0000) >> 16);
+        result[2] = (byte) ((data & 0x0000FF00) >> 8);
+        result[3] = (byte) ((data & 0x000000FF) >> 0);
+        return result;
+    }
+    byte[] ShortToByteArray( int data ) {
+        byte[] result = new byte[2];
+        result[0] = (byte) ((data & 0xFF00) >> 8);
+        result[1] = (byte) ((data & 0x00FF) >> 0);
+        return result;
     }
 }
