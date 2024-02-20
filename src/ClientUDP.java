@@ -8,4 +8,15 @@ public class ClientUDP
     public short requestID;
     public byte onl;
     public String operationName;
+
+    public ClientUDP(byte TML, byte opCode, int op1, int op2, short requestID, byte onl, String operationName){
+        this.TML = TML;
+        this.opCode = opCode;
+        this.op1 = op1;
+        this.op2 = op2;
+        this.requestID = requestID;
+        this.onl = onl;
+        this.operationName = operationName;
+
+    }
 }
