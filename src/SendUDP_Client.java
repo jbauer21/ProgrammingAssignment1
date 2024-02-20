@@ -21,7 +21,7 @@ public class SendUDP_Client {
         // Create a sample ClientUDP
 
 
-
+        // COMMENT INFO BELOW
         Scanner scan = new Scanner(System.in);
         short requestID = 0;
         while(true) {
@@ -76,6 +76,14 @@ public class SendUDP_Client {
             DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
                     destAddr, destPort);
             sock.send(message);
+
+            // Wait for a response
+            DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
+            sock.receive(sPacket);
+            // - Split into Server and Client Decoders
+            ServerOperationDecoder sDecoder = (args.length == 2 ?
+                    new ServerOperationDecoderBin(args[1]) :
+                    new ServerOperationDecoderBin());
 
             sock.close();
             requestID += 1;
