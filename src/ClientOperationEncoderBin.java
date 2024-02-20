@@ -1,6 +1,6 @@
 import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
 
-    public class ClientOperationEncodeBin implements ClientOperationEncoder, BinConstClient {
+    public class ClientOperationEncoderBin implements ClientOperationEncoder, BinConstClient {
 
         private String encoding;  // Character encoding
 
