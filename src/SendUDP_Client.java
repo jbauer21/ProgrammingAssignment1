@@ -25,16 +25,16 @@ public class SendUDP_Client {
         DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
 
         // Use the encoding scheme given on the command line (args[2])
-        /*FriendEncoder encoder = (args.length == 3 ?
-            new FriendEncoderBin(args[2]) :
-            new FriendEncoderBin());*/
+        ClientOperationEncoder cEncoder = (args.length == 3 ?
+                new ClientOperationEncoderBin(args[2]) :
+                new ClientOperationEncoderBin() );
 
         // Use Encoding Scheme (Client Encoder)
-        byte[] codedFriend = new byte[1];
+        byte[] codedFriend = cEncoder.encode(sampleClient);
 
         DatagramPacket message = new DatagramPacket(codedFriend, codedFriend.length,
                                   destAddr, destPort);
-        //sock.send(message);
+        sock.send(message);
 
         sock.close();
     }
