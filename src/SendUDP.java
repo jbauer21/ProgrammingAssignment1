@@ -1,3 +1,5 @@
+public class SendUDP {}
+/*
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
 
@@ -16,7 +18,7 @@ public class SendUDP {
       /*Friend friend = new Friend(1234567890987654L, "Alice Adams",
 				 (short) 777, 90007, true, true, false);*/
       
-      DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
+      /*DatagramSocket sock = new DatagramSocket(); // UDP socket for sending
       
       
       // Use the encoding scheme given on the command line (args[2])
@@ -31,6 +33,6 @@ public class SendUDP {
 						  destAddr, destPort);*/
       //sock.send(message);
       
-      sock.close();
+      /*sock.close();
   }
-}
+}*/

@@ -1,4 +1,5 @@
-import java.net.*;  // for DatagramSocket and DatagramPacket
+public class RecvUDP {}
+/*import java.net.*;  // for DatagramSocket and DatagramPacket
 import java.io.*;   // for IOException
 
 public class RecvUDP {
@@ -28,9 +29,9 @@ public class RecvUDP {
 
       //Friend receivedFriend = decoder.decode(packet);
 
-      System.out.println("Received Binary-Encoded Friend");
+      /*System.out.println("Received Binary-Encoded Friend");
       //System.out.println(receivedFriend);
       
       sock.close();
   }
-}
+}*/
