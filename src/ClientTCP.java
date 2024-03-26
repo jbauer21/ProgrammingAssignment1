@@ -1,6 +1,7 @@
 import Client.ClientOperationEncoder;
 import Client.ClientOperationEncoderBin;
 import Client.ClientPackage;
+import Server.ServerOperationDecoderBin;
 
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
@@ -22,14 +23,15 @@ public class ClientTCP {
         int destPort = Integer.parseInt(args[1]);               // Destination port
         System.out.println("Establishing connection with " + destAddr);
         // EST Socket - TCP
-        Socket sock = new Socket(destAddr, destPort);
-        System.out.println("Connection Established");
 
 
         // COMMENT INFO BELOW
         Scanner scan = new Scanner(System.in);
         short requestID = 0;
         while(true) {
+            Socket sock = new Socket(destAddr, destPort);
+            System.out.println("Connection Established");
+
             System.out.println("----- CLIENT INPUT -----");
             System.out.println("- VALID OPERATIONS\n > 0 = addition\n > 1 = subtraction\n > 2 = or\n > 3 = and\n > 4 = division\n > 5 = multiplication" +
                     "\n\n[USE CTRL+C AT ANY TIME TO QUIT]");
@@ -40,10 +42,10 @@ public class ClientTCP {
             String operationName = "";
             byte onl;
             switch (opCode) {
-                case 5:
+                case 0:
                     operationName = "addition";
                     break;
-                case 4:
+                case 1:
                     operationName = "subtraction";
                     break;
                 case 2:
@@ -52,10 +54,10 @@ public class ClientTCP {
                 case 3:
                     operationName = "and";
                     break;
-                case 1:
+                case 4:
                     operationName = "division";
                     break;
-                case 0:
+                case 5:
                     operationName = "multiplication";
                     break;
             }
@@ -93,36 +95,34 @@ public class ClientTCP {
             // Mark send time and close stream
             long sTime = System.nanoTime();
             out.close();
-            sock.close();
+            //sock.close();
 
 
 
             // Wait for a response - NOT FUNCTIONAL
-            /*sock = null;
-            while(sock == null){
+            ServerSocket servSock = null;
+            while(servSock == null){
                 try{
-                    sock = new DatagramSocket(destPort);
+                    servSock = new ServerSocket(destPort);
                 }catch (Exception e) {}
             }
-            DatagramPacket sPacket = new DatagramPacket(new byte[1024], 1024);
+            Socket resSock = servSock.accept();
 
             System.out.println("Waiting for Server...\n");
-            sock.receive(sPacket);
             long eTime = System.nanoTime();
             // -> Print response time
             System.out.println("----- RESPONSE TIME -----\n" + (eTime - sTime));
 
             // - Split into Server and Client Decoders
-            Server.ServerOperationDecoder sDecoder = (args.length == 2 ?
-                    new Server.ServerOperationDecoderBin(args[1]) :
-                    new Server.ServerOperationDecoderBin());
+            Server.ServerOperationDecoder sDecoder = new ServerOperationDecoderBin();
 
-            Server.ServerPackage recPack = sDecoder.decode(sPacket);
+            Server.ServerPackage recPack = sDecoder.decode(resSock.getInputStream());
 
             System.out.println("----- RECEIVED -----\n" + recPack);
 
-            sock.close();
-            requestID += 1;*/
+            resSock.close();
+            servSock.close();
+            requestID += 1;
         }
     }
 }
