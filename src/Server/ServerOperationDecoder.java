@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.*;   // for InputStream and IOException
 import java.net.*;  // for DatagramPacket
 public interface ServerOperationDecoder {

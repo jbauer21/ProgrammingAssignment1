@@ -1,3 +1,5 @@
+package Server;
+
 //constants for ServerUDP
 public interface BinConstServer {
     public static final String defaultEncoding = "UTF-16BE";

@@ -1,6 +1,9 @@
 import Client.ClientOperationEncoder;
 import Client.ClientOperationEncoderBin;
 import Client.ClientPackage;
+import Server.ServerOperationDecoder;
+import Server.ServerOperationDecoderBin;
+import Server.ServerPackage;
 
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException

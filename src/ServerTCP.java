@@ -1,4 +1,7 @@
+import Client.ClientOperationDecoder;
+import Client.ClientOperationDecoderBin;
 import Client.ClientPackage;
+import Server.*;
 
 import java.net.*;  // for DatagramSocket and DatagramPacket
 

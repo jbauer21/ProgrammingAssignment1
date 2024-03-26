@@ -1,3 +1,5 @@
+package Server;
+
 //Information sent out from client.
 public class ServerPackage {
     public byte TML;

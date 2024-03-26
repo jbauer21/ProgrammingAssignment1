@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
 
 public class ServerOperationEncoderBin implements ServerOperationEncoder, BinConstServer {

@@ -113,11 +113,11 @@ public class ClientTCP {
             System.out.println("----- RESPONSE TIME -----\n" + (eTime - sTime));
 
             // - Split into Server and Client Decoders
-            ServerOperationDecoder sDecoder = (args.length == 2 ?
-                    new ServerOperationDecoderBin(args[1]) :
-                    new ServerOperationDecoderBin());
+            Server.ServerOperationDecoder sDecoder = (args.length == 2 ?
+                    new Server.ServerOperationDecoderBin(args[1]) :
+                    new Server.ServerOperationDecoderBin());
 
-            ServerPackage recPack = sDecoder.decode(sPacket);
+            Server.ServerPackage recPack = sDecoder.decode(sPacket);
 
             System.out.println("----- RECEIVED -----\n" + recPack);
 

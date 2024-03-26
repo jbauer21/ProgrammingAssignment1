@@ -1,5 +1,4 @@
-import Client.BinConstClient;
-import Client.ClientPackage;
+package Client;
 
 import java.io.*;  // for ByteArrayInputStream
 import java.net.*; // for DatagramPacket
