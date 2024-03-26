@@ -1,3 +1,5 @@
+package Client;
+
 //constants for ClientUDP
 public interface BinConstClient {
     public static final String defaultEncoding = "UTF-16BE";

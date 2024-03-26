@@ -1,8 +1,12 @@
+import Client.ClientOperationEncoder;
+import Client.ClientOperationEncoderBin;
+import Client.ClientPackage;
+
 import java.net.*;  // for DatagramSocket, DatagramPacket, and InetAddress
 import java.io.*;   // for IOException
 import java.util.Scanner;
 
-public class Client {
+public class ClientUDP {
 
     // Arguments
     // -> IP Address

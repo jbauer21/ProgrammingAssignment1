@@ -1,3 +1,8 @@
+package Client;
+
+import Client.ClientOperationEncoder;
+import Client.ClientPackage;
+
 import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
 
     public class ClientOperationEncoderBin implements ClientOperationEncoder, BinConstClient {
@@ -5,7 +10,7 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
         private String encoding;  // Character encoding
 
         public ClientOperationEncoderBin() {
-            encoding = defaultEncoding;
+            encoding = BinConstClient.defaultEncoding;
         }
 
         public ClientOperationEncoderBin(String encoding) {
@@ -16,7 +21,7 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(buf);
 
-            if (clientUDP.TML > maxTML) //check to see if total message length is too big
+            if (clientUDP.TML > BinConstClient.maxTML) //check to see if total message length is too big
                 throw new IOException("total message length exceeds encoded length limit.");
 
             out.writeByte(clientUDP.TML); //write total message length
@@ -25,7 +30,7 @@ import java.io.*;  // for ByteArrayOutputStream and DataOutputStream
             out.writeInt(clientUDP.op2); //write operation 2
             out.writeShort(clientUDP.requestID); //write request id
 
-            if (clientUDP.onl > maxONL) //check to see if operation name length is too big.
+            if (clientUDP.onl > BinConstClient.maxONL) //check to see if operation name length is too big.
                 throw new IOException("operation name length exceeds encoded length limit.");
 
             out.writeByte(clientUDP.onl);

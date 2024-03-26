@@ -1,3 +1,5 @@
+package Client;
+
 //Information sent out from client.
 public class ClientPackage
 {

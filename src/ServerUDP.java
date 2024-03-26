@@ -1,7 +1,9 @@
+import Client.ClientPackage;
+
 import java.net.*;  // for DatagramSocket and DatagramPacket
 
 
-public class Server {
+public class ServerUDP {
 
   public static void main(String[] args) throws Exception {
 
